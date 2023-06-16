@@ -94,14 +94,14 @@ function createBuild() {
   const randomExteriorFeatures = selectItem(exteriorFeatures);
   buildItems.push(randomExteriorFeatures);
 
+  // get random interiorFeatures
+  const randomInteriorFeatures = selectItem(interiorFeatures);
+  buildItems.push(randomInteriorFeatures);
+
   // get random extraRoom
   //! has bonus roll
   const randomExtraRoom = selectItem(extraRoom);
   buildItems.push(randomExtraRoom);
-
-  // get random interiorFeatures
-  const randomInteriorFeatures = selectItem(interiorFeatures);
-  buildItems.push(randomInteriorFeatures);
 
   // get random familyType
   const randomFamilyType = selectItem(familyType);

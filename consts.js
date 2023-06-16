@@ -93,6 +93,21 @@ export const exteriorFeatures = [
   "Dealer's Choice",
 ];
 
+export const interiorFeatures = [
+  "Light Switches",
+  "Pet door",
+  "mother in law door",
+  "window planter boxes",
+  "fireplace",
+  "built in shelving",
+  "carpeted bedrooms",
+  "radiators",
+  "ceiling fans",
+  "thermostats",
+  "overhead lighting",
+  "Dealer's Choice",
+];
+
 export const extraRoom = [
   "Storage room",
   "basement",
@@ -114,21 +129,6 @@ export const extraRoom = [
   "office",
   "Dealer's Choice",
   "roll2",
-];
-
-export const interiorFeatures = [
-  "Light Switches",
-  "Pet door",
-  "mother in law door",
-  "window planter boxes",
-  "fireplace",
-  "built in shelving",
-  "carpeted bedrooms",
-  "radiators",
-  "ceiling fans",
-  "thermostats",
-  "overhead lighting",
-  "Dealer's Choice",
 ];
 
 export const familyType = ["Family", "Single Sim", "Couple", "Roommates"];
