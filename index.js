@@ -13,8 +13,34 @@ import {
 } from "./consts.js";
 
 const bonusRoll = (type, array) => {
+  const items = [];
+  let filteredArray = array.filter((item) => item !== "roll3" && item !== "roll2");
+
   if (type === "roll2") {
+    for (let i = 0; i < 2; i++) {
+      const randomIndex = Math.floor(
+        Math.random() * filteredArray.length
+      );
+      const randomItem = filteredArray[randomIndex];
+      items.push(randomItem);
+
+      // remove item from filteredArray so it cannot be selected again
+      filteredArray = filteredArray.filter((item) => item !== randomItem);
+    }
+
+    const joinedItems = items.join(" + bonus: ");
+    return joinedItems;
   } else if (type === "roll3") {
+    for (let i = 0; i < 3; i++) {
+      const randomIndex = Math.floor(Math.random() * filteredArray.length);
+      const randomItem = filteredArray[randomIndex];
+      items.push(randomItem);
+
+      // remove item from filteredArray so it cannot be selected again
+      filteredArray = filteredArray.filter((item) => item !== randomItem);
+    }
+    const joinedItems = items.join(" + bonus: ");
+    return joinedItems;
   }
   return [];
 };
@@ -26,12 +52,11 @@ const selectItem = (array) => {
         return bonusRoll(item, array);   
     }
 
-    return array[Math.floor(Math.random() * array.length)];
+    return item;
 };
 
 // on button click
 function createBuild() {
-  console.log("create build");
   const buildText = document.querySelector(".build-text");
 
   // Clear existing content
@@ -40,112 +65,51 @@ function createBuild() {
   let buildItems = [];
 
   // get random houseBuild
-  //   const randomBuild = houseBuild[Math.floor(Math.random() * houseBuild.length)];
   const randomBuild = selectItem(houseBuild);
   buildItems.push(randomBuild);
 
   // get random houseConcept
-  //   const randomConcept =
-  //     houseConcept[Math.floor(Math.random() * houseConcept.length)];
   const randomConcept = selectItem(houseConcept);
   buildItems.push(randomConcept);
 
   // get random houseStyle
-  const randomStyle = houseStyle[Math.floor(Math.random() * houseStyle.length)];
-  if (randomStyle === "roll2") {
-    const randomExteriorFeatures = [];
-    for (let i = 0; i < 2; i++) {
-      const randomIndex = Math.floor(
-        Math.random() * exteriorFeatures.length - 1
-      );
-      const randomFeature = exteriorFeatures[randomIndex];
-      randomExteriorFeatures.push(randomFeature);
-    }
-    const joinedFeatures = randomExteriorFeatures.join(" + bonus: ");
-    buildItems.push(joinedFeatures);
-  } else {
-    buildItems.push(randomStyle);
-  }
+  //! has bonus roll
+  const randomStyle = selectItem(houseStyle);
+  buildItems.push(randomStyle);
 
   // get random houseExterior
-  const randomExterior =
-    houseExterior[Math.floor(Math.random() * houseExterior.length)];
-  if (randomExterior === "roll2") {
-    const randomExteriorFeatures = [];
-    for (let i = 0; i < 2; i++) {
-      const randomIndex = Math.floor(
-        Math.random() * exteriorFeatures.length - 1
-      );
-      const randomFeature = exteriorFeatures[randomIndex];
-      randomExteriorFeatures.push(randomFeature);
-    }
-    const joinedFeatures = randomExteriorFeatures.join(" + bonus: ");
-    buildItems.push(joinedFeatures);
-  } else if (randomExterior === "roll3") {
-    const randomExteriorFeatures = [];
-    for (let i = 0; i < 3; i++) {
-      const randomIndex = Math.floor(
-        Math.random() * exteriorFeatures.length - 1
-      );
-      const randomFeature = exteriorFeatures[randomIndex];
-      randomExteriorFeatures.push(randomFeature);
-    }
-    const joinedFeatures = randomExteriorFeatures.join(" + bonus: ");
-    buildItems.push(joinedFeatures);
-  } else {
-    buildItems.push(randomExterior);
-  }
+  //! has bonus roll
+  const randomExterior = selectItem(houseExterior);
   buildItems.push(randomExterior);
 
   // get random exteriorColorScheme
-  const randomExteriorColor =
-    exteriorColorScheme[Math.floor(Math.random() * exteriorColorScheme.length)];
+  const randomExteriorColor = selectItem(exteriorColorScheme);
   buildItems.push(randomExteriorColor);
 
   // get random interiorColorScheme
-  const randomInteriorColor =
-    interiorColorScheme[Math.floor(Math.random() * interiorColorScheme.length)];
+  const randomInteriorColor = selectItem(interiorColorScheme);
   buildItems.push(randomInteriorColor);
 
   // get random exteriorFeatures
-  const randomExteriorFeatures =
-    exteriorFeatures[Math.floor(Math.random() * exteriorFeatures.length)];
-  if (randomExteriorFeatures === "roll2") {
-    buildItems.push(randomExteriorFeatures);
-  }
+  const randomExteriorFeatures = selectItem(exteriorFeatures);
+  buildItems.push(randomExteriorFeatures);
 
   // get random extraRoom
-  const randomExtraRoom =
-    extraRoom[Math.floor(Math.random() * extraRoom.length)];
-  if (randomExtraRoom === "roll2") {
-    const bonus = [];
-    for (let i = 0; i < 2; i++) {
-      const randomIndex = Math.floor(
-        Math.random() * exteriorFeatures.length - 1
-      );
-      const bonus = exteriorFeatures[randomIndex];
-      randomExteriorFeatures.push(bonus);
-    }
-    const joinedFeatures = randomExteriorFeatures.join(" + bonus: ");
-    buildItems.push(joinedFeatures);
-  } else {
-    buildItems.push(randomExtraRoom);
-  }
+  //! has bonus roll
+  const randomExtraRoom = selectItem(extraRoom);
+  buildItems.push(randomExtraRoom);
 
   // get random interiorFeatures
-  const randomInteriorFeatures =
-    interiorFeatures[Math.floor(Math.random() * interiorFeatures.length)];
+  const randomInteriorFeatures = selectItem(interiorFeatures);
   buildItems.push(randomInteriorFeatures);
 
   // get random familyType
-  const randomFamilyType =
-    familyType[Math.floor(Math.random() * familyType.length)];
+  const randomFamilyType = selectItem(familyType);
   buildItems.push(randomFamilyType);
 
   // get random chaos
-  const randomChaos = chaos[Math.floor(Math.random() * chaos.length)];
-  if (randomChaos === "roll2") {
-  }
+  //! has bonus roll
+  const randomChaos = selectItem(chaos);
   buildItems.push(randomChaos);
 
   // loop through all buildItems and add them as <li>s to buildText
