@@ -1,3 +1,36 @@
+export const expansionPackList = [
+    "Get to Work",
+    "Get Together",
+    "City Living",
+    "Cats & Dogs",
+    "Seasons",
+    "Get Famous",
+    "Island Living",
+    "Discover University",
+    "Eco Lifestyle",
+    "Snowy Escape",
+    "Cottage Living",
+    "High School Years",
+    "Growing Together",
+];
+
+export const gamePackList = [
+    "Outdoor Retreat",
+    "Spa Day",
+    "Dine Out",
+    "Vampires",
+    "Parenthood",
+    "Jungle Adventure",
+    "StrangerVille",
+    "Realm of Magic",
+    "Journey to Batuu",
+    "Dream Home Decorator",
+    "My Wedding Stories",
+    "Werewolves",
+];
+// export const stuffPackList = [];
+// export const kitsList = [];
+
 export const houseBuild = [
   "Micro Home",
   "Tiny Home",
