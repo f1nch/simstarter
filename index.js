@@ -1,4 +1,5 @@
 import {
+  expansionPackList,
   houseBuild,
   houseConcept,
   houseStyle,
@@ -11,6 +12,43 @@ import {
   familyType,
   chaos,
 } from "./consts.js";
+
+let selectedExpansionPacks = [...expansionPackList];
+
+/**
+ * Create Expansion Pack List
+ */
+const expansionContainer = document.querySelector(".expansion-container");
+
+expansionPackList.forEach((pack) => {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.value = pack;
+  checkbox.id = `expansion-${pack}`;
+  checkbox.checked = true;
+  checkbox.addEventListener("click", handleExpansionClick);
+
+  const label = document.createElement("label");
+  label.textContent = pack;
+  label.htmlFor = `expansion-${pack}`;
+  label.appendChild(checkbox);
+
+  expansionContainer.appendChild(label);
+});
+
+function handleExpansionClick(event) {
+  if (!event)
+  return;
+
+  if (selectedExpansionPacks.includes(event.target.value)) {
+    selectedExpansionPacks = selectedExpansionPacks.filter(
+      (pack) => pack !== event.target.value
+    );
+  }
+  else {
+    selectedExpansionPacks.push(event.target.value);
+  };
+}
 
 const bonusRoll = (type, array) => {
   const items = [];
