@@ -91,7 +91,7 @@ function createBuild() {
   buildItems.push(randomInteriorColor);
 
   // get random exteriorFeatures
-  const randomExteriorFeatures = selectItem(exteriorFeatures);
+  const randomExteriorFeatures = bonusRoll("roll2", exteriorFeatures);
   buildItems.push(randomExteriorFeatures);
 
   // get random interiorFeatures
