@@ -1,7 +1,12 @@
-import './App.css';
+import "./App.css";
 
-import GeneratedContent from './components/generated-content/generated-content.component';
-import GeneratedConfig from './components/generator-config/generator-config.component';
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+import GeneratedContent from "./components/generated-content/generated-content.component";
+import GeneratedConfig from "./components/generator-config/generator-config.component";
 
 function App() {
   return (

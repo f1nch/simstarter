@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
 import * as consts from "../consts";
 import "./generated-content.css";
-
+import Button from "@mui/material/Button";
 
 function GeneratedContent(props) {
   // const items = props.items.map((item) => <li key={item.id}>{item.name}</li>);
   const generatedText = useRef(null);
   let buildItems = [];
-
 
   const bonusRoll = (type, array) => {
     const items = [];
@@ -123,20 +122,15 @@ function GeneratedContent(props) {
 
   return (
     <div className="generated-content">
+      <Button variant="contained" onClick={handleGenerateClick}>
+        Generate
+      </Button>
       <ul ref={generatedText}>
         {buildItems &&
           buildItems.map((item) => {
             return <li>{item}</li>;
           })}
       </ul>
-
-      <button
-        type="button"
-        className="create-button"
-        onClick={handleGenerateClick}
-      >
-        Generate
-      </button>
     </div>
   );
 }
