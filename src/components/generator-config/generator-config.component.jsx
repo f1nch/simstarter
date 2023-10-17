@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -16,21 +17,6 @@ function GeneratedConfig(props) {
 
   return (
     <div className="generator-config">
-      {/* {expansionPackList &&
-        expansionPackList.map((expansionPack, index) => {
-          return (
-            <div key={expansionPack} className="expansion-item">
-              <input
-                type="checkbox"
-                id={expansionPack}
-                name={expansionPack}
-                value={expansionPack}
-              />
-              <label htmlFor={expansionPack}>{expansionPack}</label>
-            </div>
-          );
-        })} */}
-
       <Autocomplete
         multiple
         id="checkboxes-tags-demo"
@@ -48,10 +34,69 @@ function GeneratedConfig(props) {
             {option.label}
           </li>
         )}
-        style={{ width: 500 }}
         renderInput={(params) => (
           <TextField {...params} label="Expansion Packs" />
         )}
+      />
+
+      <Autocomplete
+        multiple
+        id="checkboxes-tags-demo"
+        options={gamePackList}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.label}
+          </li>
+        )}
+        renderInput={(params) => <TextField {...params} label="Game Packs" />}
+      />
+
+      <Autocomplete
+        multiple
+        id="checkboxes-tags-demo"
+        options={stuffPackList}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.label}
+          </li>
+        )}
+        renderInput={(params) => <TextField {...params} label="Stuff Packs" />}
+      />
+
+      <Autocomplete
+        multiple
+        id="checkboxes-tags-demo"
+        options={kitsList}
+        disableCloseOnSelect
+        getOptionLabel={(option) => option.label}
+        renderOption={(props, option, { selected }) => (
+          <li {...props}>
+            <Checkbox
+              icon={icon}
+              checkedIcon={checkedIcon}
+              style={{ marginRight: 8 }}
+              checked={selected}
+            />
+            {option.label}
+          </li>
+        )}
+        renderInput={(params) => <TextField {...params} label="Kits" />}
       />
     </div>
   );
