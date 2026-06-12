@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { roll, rollMany } from "./generator";
+import { roll, rollMany, generateStartingPoint, arraySlotCounts } from "./generator";
 import type { DataItem } from "./data/types";
 import type { PackId } from "./data/packs";
+import { categories } from "./data/index";
 
 const items: DataItem[] = [
   { id: "a", label: "A", pack: "base" },
@@ -69,5 +70,45 @@ describe("rollMany", () => {
     const result = rollMany(two, baseOnly, 3);
     expect(result).toHaveLength(3);
     expect(new Set(result.map((r) => r.id)).size).toBe(2);
+  });
+});
+
+describe("generateStartingPoint", () => {
+  const owned = new Set<PackId>(["base"]);
+
+  it("fills every slot with base-game items when only base is owned", () => {
+    for (let i = 0; i < 20; i++) {
+      const sp = generateStartingPoint(owned);
+      const singles = [
+        sp.scenario, sp.goal, sp.wildcard, sp.household, sp.aspiration,
+        sp.houseType, sp.houseStyle, sp.exteriorMaterial,
+        sp.exteriorColors, sp.interiorColors, sp.world,
+      ];
+      for (const item of singles) expect(item.pack).toBe("base");
+      for (const arr of [sp.restrictions, sp.traits, sp.exteriorFeatures, sp.bonusRooms, sp.interiorFeatures]) {
+        for (const item of arr) expect(item.pack).toBe("base");
+      }
+    }
+  });
+
+  it("rolls fixed array counts (restrictions 1-2, traits 3, features 2 each)", () => {
+    const restrictionCounts = new Set<number>();
+    for (let i = 0; i < 40; i++) {
+      const sp = generateStartingPoint(owned);
+      restrictionCounts.add(sp.restrictions.length);
+      expect([1, 2]).toContain(sp.restrictions.length);
+      expect(sp.traits).toHaveLength(arraySlotCounts.traits);
+      expect(sp.exteriorFeatures).toHaveLength(arraySlotCounts.exteriorFeatures);
+      expect(sp.bonusRooms).toHaveLength(arraySlotCounts.bonusRooms);
+      expect(sp.interiorFeatures).toHaveLength(arraySlotCounts.interiorFeatures);
+    }
+    // over 40 rolls, both 1 and 2 restrictions should appear
+    expect(restrictionCounts).toEqual(new Set([1, 2]));
+  });
+
+  it("pulls items from the registered categories", () => {
+    const sp = generateStartingPoint(owned);
+    expect(categories.scenarios.map((s) => s.id)).toContain(sp.scenario.id);
+    expect(categories.worlds.map((w) => w.id)).toContain(sp.world.id);
   });
 });
