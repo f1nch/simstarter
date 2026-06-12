@@ -4,7 +4,6 @@ export const worlds: DataItem[] = [
   { id: "willow_creek", label: "Willow Creek", pack: "base" },
   { id: "oasis_springs", label: "Oasis Springs", pack: "base" },
   { id: "newcrest", label: "Newcrest", pack: "base" },
-  { id: "magnolia_promenade", label: "Magnolia Promenade", pack: "get_to_work" },
   { id: "windenburg", label: "Windenburg", pack: "get_together" },
   { id: "san_myshuno", label: "San Myshuno", pack: "city_living" },
   { id: "brindleton_bay", label: "Brindleton Bay", pack: "cats_and_dogs" },

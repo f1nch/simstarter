@@ -16,7 +16,7 @@ export const exteriorFeatures: DataItem[] = [
   { id: "garage", label: "Garage", pack: "base" },
   { id: "water_feature", label: "Water Feature", pack: "base" },
   { id: "chimney", label: "Chimney", pack: "base" },
-  { id: "splash_zone", label: "Get Wet zone", pack: "base", detail: "Splash pad, sprinklers, water balloons." },
+  { id: "splash_zone", label: "Get Wet Zone", pack: "base", detail: "Splash pad, sprinklers, water balloons." },
   { id: "picnic_area", label: "Picnic Area", pack: "base" },
   { id: "dealers_choice_exterior", label: "Dealer's Choice", pack: "base", detail: "Builder picks a feature." },
   { id: "livestock", label: "Livestock", pack: "cottage_living" },

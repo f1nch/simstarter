@@ -12,7 +12,7 @@ export const bonusRooms: DataItem[] = [
   { id: "crafting_room", label: "Crafting Room", pack: "base" },
   { id: "greenhouse", label: "Greenhouse", pack: "base" },
   { id: "library", label: "Library", pack: "base" },
-  { id: "laundry_room", label: "Laundry Room", pack: "base" },
+  { id: "laundry_room", label: "Laundry Room", pack: "laundry_day" },
   { id: "workshop", label: "Workshop", pack: "base" },
   { id: "music_room", label: "Music Room", pack: "base" },
   { id: "playroom", label: "Playroom", pack: "base" },
