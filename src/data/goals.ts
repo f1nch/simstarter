@@ -6,7 +6,7 @@ export const goals: DataItem[] = [
   { id: "complete_aspiration", label: "Complete an aspiration", pack: "base", detail: "Finish every milestone of your Sim's aspiration." },
   { id: "top_of_career", label: "Top of the ladder", pack: "base", detail: "Reach level 10 of any career (if careers are allowed by your restrictions, otherwise max a skill-based income instead)." },
   { id: "ten_friends", label: "Ten friends", pack: "base", detail: "Make 10 friends outside the household." },
-  { id: "raise_two_kids", label: "Raise the next generation", pack: "base", detail: "Raise two children from infant to young adult." },
+  { id: "raise_two_kids", label: "Raise the next generation", pack: "base", detail: "Raise two children from birth to young adult." },
   { id: "dream_home", label: "Build the dream home", pack: "base", detail: "Live in a fully furnished home worth §150,000+." },
   { id: "jack_of_five", label: "Jack of all trades", pack: "base", detail: "Reach level 5 in five different skills." },
   { id: "five_star_celeb", label: "Five-star fame", pack: "get_famous", detail: "Reach 5-star celebrity status." },

@@ -1,7 +1,7 @@
 import type { DataItem } from "./types";
 
 export const scenarios: DataItem[] = [
-  { id: "teen_runaway", label: "Teen runaway", pack: "base", detail: "Start as a lone teen with §500. No adults allowed in the household." },
+  { id: "teen_runaway", label: "Teen runaway", pack: "base", detail: "Start as a lone teen with §500. No adults at game start — survive until you age up." },
   { id: "rags_to_riches", label: "Rags to riches", pack: "base", detail: "Empty lot, §0 after buying it. Everything is earned from nothing." },
   { id: "broke_single_parent", label: "Broke single parent", pack: "base", detail: "One adult, three kids, §1,500 to your name." },
   { id: "rich_widow", label: "Wealthy widow(er) starting over", pack: "base", detail: "Plenty of money, no friends, new town, a portrait of the late spouse." },
