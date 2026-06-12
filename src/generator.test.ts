@@ -34,6 +34,18 @@ describe("roll", () => {
     expect(roll(single, baseOnly, ["only"]).id).toBe("only");
   });
 
+  it("array re-roll worst case still finds an alternative (invariant safety margin)", () => {
+    // 5 base entries, 3 held + re-rolled current = 3 exclusions → 2 eligible remain
+    const five: DataItem[] = ["p", "q", "r", "s", "t"].map((id) => ({
+      id,
+      label: id.toUpperCase(),
+      pack: "base",
+    }));
+    for (let i = 0; i < 50; i++) {
+      expect(["s", "t"]).toContain(roll(five, baseOnly, ["p", "q", "r"]).id);
+    }
+  });
+
   it("throws when no owned items exist", () => {
     const packOnly: DataItem[] = [{ id: "c", label: "C", pack: "cats_and_dogs" }];
     expect(() => roll(packOnly, baseOnly)).toThrow();
@@ -47,5 +59,15 @@ describe("rollMany", () => {
       expect(result).toHaveLength(3);
       expect(new Set(result.map((r) => r.id)).size).toBe(3);
     }
+  });
+
+  it("degrades to duplicates (not a throw) when count exceeds the eligible pool", () => {
+    const two: DataItem[] = [
+      { id: "x", label: "X", pack: "base" },
+      { id: "y", label: "Y", pack: "base" },
+    ];
+    const result = rollMany(two, baseOnly, 3);
+    expect(result).toHaveLength(3);
+    expect(new Set(result.map((r) => r.id)).size).toBe(2);
   });
 });
