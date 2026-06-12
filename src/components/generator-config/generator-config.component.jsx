@@ -1,19 +1,27 @@
 import React from "react";
 import * as consts from "../consts";
 import "./generator-config.css";
-import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function GeneratedConfig(props) {
   const { expansionPackList, gamePackList, stuffPackList, kitsList } = consts;
+  const {
+    expansions,
+    setExpansions,
+    gamePacks,
+    setGamePacks,
+    stuffPacks,
+    setStuffPacks,
+    kits,
+    setKits,
+  } = props;
 
   return (
     <div className="generator-config">
@@ -23,6 +31,8 @@ function GeneratedConfig(props) {
         options={expansionPackList}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
+        value={expansions}
+        onChange={(_, value) => setExpansions(value)}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -45,6 +55,8 @@ function GeneratedConfig(props) {
         options={gamePackList}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
+        value={gamePacks}
+        onChange={(_, value) => setGamePacks(value)}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -65,6 +77,8 @@ function GeneratedConfig(props) {
         options={stuffPackList}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
+        value={stuffPacks}
+        onChange={(_, value) => setStuffPacks(value)}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
@@ -85,6 +99,8 @@ function GeneratedConfig(props) {
         options={kitsList}
         disableCloseOnSelect
         getOptionLabel={(option) => option.label}
+        value={kits}
+        onChange={(_, value) => setKits(value)}
         renderOption={(props, option, { selected }) => (
           <li {...props}>
             <Checkbox
