@@ -24,6 +24,14 @@ describe("data integrity", () => {
     expect(Object.keys(categories).length).toBeGreaterThan(0);
   });
 
+  it("ids are unique across all categories", () => {
+    const all: string[] = [];
+    for (const items of Object.values(categories)) {
+      all.push(...items.map((i) => i.id));
+    }
+    expect(new Set(all).size).toBe(all.length);
+  });
+
   // plain for-loop, not describe.each — describe.each throws on an empty
   // table, and the registry is legitimately empty until Task 3 registers data
   for (const [name, items] of Object.entries(categories)) {
@@ -34,9 +42,9 @@ describe("data integrity", () => {
       });
 
       it("only references valid packs", () => {
-        for (const item of items) {
-          expect(packIds).toContain(item.pack);
-        }
+        const validSet = new Set<string>(packIds);
+        const bad = items.filter((i) => !validSet.has(i.pack));
+        expect(bad.map((i) => `${i.id}→${i.pack}`)).toEqual([]);
       });
 
       it("has enough base-game entries", () => {
