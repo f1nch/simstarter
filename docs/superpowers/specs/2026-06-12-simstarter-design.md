@@ -116,7 +116,9 @@ No e2e tests.
 
 ## Repo Reset & Deployment
 
-- Delete CRA leftovers (old `package.json`, `node_modules`, stale config); keep git history
+- The old CRA app (snapshotted at commit `b72eaaf`) is replaced; keep git history
+- Port the existing data lists from `src/components/consts.js` (house types, styles, colors, features, family types) into the new typed `src/data/` modules instead of re-authoring them
+- Delete CRA leftovers (old `package.json`, `node_modules`, stale config)
 - Scaffold Vite + React + TS + Tailwind 4 with pnpm
 - Rewrite README for the new combined app (old version roadmap is obsolete)
 - `vite build` → static `dist/`; configured ready for GitHub Pages or Netlify, publishing triggered later by the user
