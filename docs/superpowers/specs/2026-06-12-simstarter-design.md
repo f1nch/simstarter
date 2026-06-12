@@ -43,10 +43,10 @@ One module per category under `src/data/`:
 - `packs.ts` — master pack list (id, name, type: base | expansion | game | stuff)
 - Challenge blocks: `scenarios.ts`, `restrictions.ts`, `goals.ts`, `wildcards.ts`
 - Household: `households.ts` (family types), `traits.ts`, `aspirations.ts`
-- House: `houseTypes.ts`, `houseStyles.ts`, `colorSchemes.ts`, `exteriorFeatures.ts`, `bonusRooms.ts`, `interiorFeatures.ts`
+- House: `houseTypes.ts`, `houseStyles.ts`, `exteriorMaterials.ts`, `colorSchemes.ts`, `exteriorFeatures.ts`, `bonusRooms.ts`, `interiorFeatures.ts`
 - `worlds.ts` — each world tagged with the pack it ships with
 
-**Invariant: every category has at least 5 base-game entries**, so a base-game-only player always gets a full roll and every line still has a re-roll alternative (worst case: traits holds 3 distinct items and a ↻ needs a 4th). Enforced by a data integrity test.
+**Invariant: every category has at least 5 base-game entries**, so a base-game-only player always gets a full roll and every line still has a re-roll alternative (worst case: traits holds 3 distinct items and a ↻ needs a 4th). Enforced by a data integrity test. **Exception: `worlds` has exactly 3 base entries** — Willow Creek, Oasis Springs, and Newcrest are all that exist in the base game; 3 still guarantees a re-roll alternative for its single slot.
 
 ### Generator
 
@@ -71,6 +71,7 @@ interface StartingPoint {
   aspiration: DataItem;
   houseType: DataItem;
   houseStyle: DataItem;
+  exteriorMaterial: DataItem;   // brick, siding, ... (ported from old houseExterior list)
   exteriorColors: DataItem;
   interiorColors: DataItem;
   exteriorFeatures: DataItem[]; // exactly 2
@@ -98,7 +99,7 @@ Plain `useState` in the app root (no state library):
 - **Category cards** (configurations of a shared `ResultCard`):
   - 📜 Challenge — scenario, restrictions, goal, wildcard
   - 👪 Household — family type, traits, aspiration
-  - 🏠 House — type, style, exterior + interior color schemes, exterior features, bonus rooms, interior features
+  - 🏠 House — type, style, exterior material, exterior + interior color schemes, exterior features, bonus rooms, interior features
   - 🌍 World — world with pack badge
 - **`ResultLine`** — label, optional detail, pack badge for non-base content, ↻ button with a quick spin/fade micro-animation on change
 
