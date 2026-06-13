@@ -13,4 +13,6 @@ export const goals: DataItem[] = [
   { id: "graduate_honors", label: "Graduate with honors", pack: "discover_university", detail: "Earn a distinguished degree." },
   { id: "win_finchwick_fair", label: "Finchwick Fair champion", pack: "cottage_living", detail: "Win the fair with an animal, crop, or pie." },
   { id: "master_spellcaster", label: "Master spellcaster", pack: "realm_of_magic", detail: "Become a Virtuoso-rank spellcaster." },
+  { id: "complete_critter_collection", label: "Complete the critter collection", pack: "adventure_awaits", detail: "Catch and raise every critter through the Entomology skill." },
+  { id: "found_a_dynasty", label: "Found a dynasty", pack: "royalty_and_legacy", detail: "Establish a Dynasty and raise an heir to carry on its Values." },
 ];

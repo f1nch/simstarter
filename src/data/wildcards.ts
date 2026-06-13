@@ -17,4 +17,6 @@ export const wildcards: DataItem[] = [
   { id: "adopt_strays", label: "Adopt every stray", pack: "cats_and_dogs", detail: "Every stray that visits gets adopted. No exceptions, no limits." },
   { id: "grogu_nursery", label: "Grogu supervises", pack: "journey_to_batuu", detail: "Grogu sits in the nursery, watching everything." },
   { id: "haunted_lot", label: "Haunted house", pack: "paranormal", detail: "The lot has the Haunted House lot type. Good luck sleeping." },
+  { id: "imaginary_friend_rules", label: "The imaginary friend decides", pack: "adventure_awaits", detail: "A child's imaginary friend gets a vote on one household decision each week." },
+  { id: "weekly_grand_ball", label: "Weekly grand ball", pack: "royalty_and_legacy", detail: "Host a Grand Ball every weekend. Any scandals that erupt are not your fault." },
 ];

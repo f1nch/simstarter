@@ -15,4 +15,6 @@ export const scenarios: DataItem[] = [
   { id: "secret_vampire", label: "Secret vampire next door", pack: "vampires", detail: "Live a perfectly normal suburban life. Nobody can find out." },
   { id: "broke_student", label: "Self-funded student", pack: "discover_university", detail: "Put yourself through university with no family money." },
   { id: "city_burnout_farmer", label: "City burnout turned farmer", pack: "cottage_living", detail: "Quit the rat race for Henford-on-Bagley. Trade the laptop for livestock." },
+  { id: "perpetual_vacationer", label: "Perpetual vacationer", pack: "adventure_awaits", detail: "This household lives for getaways. Book a trip to Gibbi Point every chance you get and never quite settle down." },
+  { id: "fallen_noble", label: "Fallen noble", pack: "royalty_and_legacy", detail: "Scandal cost your dynasty everything. Start with a title, §0, and a plan to reclaim Ondarion's respect." },
 ];

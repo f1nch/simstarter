@@ -8,7 +8,7 @@ A Sims 4 starting-point generator. One click rolls a complete fresh-save setup:
 - 🌍 **World** — where to put down roots
 
 Every line has its own ↻ re-roll button, and results only use content from the
-packs you own. Toggle any of the 52 packs individually under **Packs ⚙**
+packs you own. Toggle any of the 54 packs individually under **Packs ⚙**
 (expansion, game, and stuff packs) — your selection is saved in your browser.
 
 ## Development

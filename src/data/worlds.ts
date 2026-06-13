@@ -21,6 +21,8 @@ export const worlds: DataItem[] = [
   { id: "ravenwood", label: "Ravenwood", pack: "life_and_death" },
   { id: "nordhaven", label: "Nordhaven", pack: "businesses_and_hobbies" },
   { id: "innisgreen", label: "Innisgreen", pack: "enchanted_by_nature" },
+  { id: "gibbi_point", label: "Gibbi Point", pack: "adventure_awaits" },
+  { id: "ondarion", label: "Ondarion", pack: "royalty_and_legacy" },
   { id: "granite_falls", label: "Granite Falls", pack: "outdoor_retreat" },
   { id: "selvadorada", label: "Selvadorada", pack: "jungle_adventure" },
   { id: "strangerville_world", label: "StrangerVille", pack: "strangerville" },
