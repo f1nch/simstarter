@@ -23,6 +23,19 @@ export function PackPicker({ owned, onChange, onClose }: PackPickerProps) {
     onChange(next);
   }
 
+  function setGroup(type: Pack["type"], select: boolean) {
+    const next = new Set(owned);
+    for (const pack of packs) {
+      if (pack.type !== type) continue;
+      if (select) {
+        next.add(pack.id);
+      } else {
+        next.delete(pack.id);
+      }
+    }
+    onChange(next);
+  }
+
   return (
     <div
       className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 p-4"
@@ -55,15 +68,26 @@ export function PackPicker({ owned, onChange, onClose }: PackPickerProps) {
           <input type="checkbox" checked disabled className="accent-green-500" />
           Base Game (always on)
         </label>
-        {GROUPS.map((group) => (
-          <fieldset key={group.type} className="mb-4">
-            <legend className="mb-2 text-xs font-bold tracking-wide text-green-600 uppercase">
-              {group.title}
-            </legend>
-            <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
-              {packs
-                .filter((p) => p.type === group.type)
-                .map((pack) => (
+        {GROUPS.map((group) => {
+          const groupPacks = packs.filter((p) => p.type === group.type);
+          const allOn = groupPacks.every((p) => owned.has(p.id));
+          return (
+            <fieldset key={group.type} className="mb-4">
+              <legend className="mb-2 flex w-full items-center justify-between gap-2">
+                <span className="text-xs font-bold tracking-wide text-green-600 uppercase">
+                  {group.title}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setGroup(group.type, !allOn)}
+                  aria-label={`${allOn ? "Clear" : "Select all"} ${group.title}`}
+                  className="rounded-full px-2 py-0.5 text-xs font-bold text-green-600 hover:bg-green-100"
+                >
+                  {allOn ? "Clear" : "Select all"}
+                </button>
+              </legend>
+              <div className="grid grid-cols-1 gap-1 sm:grid-cols-2">
+                {groupPacks.map((pack) => (
                   <label
                     key={pack.id}
                     className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-sm hover:bg-green-50"
@@ -77,9 +101,10 @@ export function PackPicker({ owned, onChange, onClose }: PackPickerProps) {
                     {pack.name}
                   </label>
                 ))}
-            </div>
-          </fieldset>
-        ))}
+              </div>
+            </fieldset>
+          );
+        })}
       </div>
     </div>
   );
