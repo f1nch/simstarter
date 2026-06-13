@@ -1,32 +1,35 @@
-# SimStarter - The Sims house build generator
+# SimStarter
 
-## Release Plan
+A Sims 4 starting-point generator. One click rolls a complete fresh-save setup:
 
-### Version 0.1 (DONE)
-his is a simple app that will generate a random house setup for the Sims 4.
-It will randomly select a type of house build
-It will randomly select the tyle of house build
-It will randomly select the house exterior
-It will randomly select an external house color scheme
-It will randomly select an internal house color scheme
-It will randomly select exterior house features
-It will randomly select bonus interior rooms
-It will randomly select interior features
-It will randomly select a type of family
-It will randomly select random features for the house/family
+- 📜 **Challenge** — a starting scenario, 1–2 restrictions, a win condition, and a wildcard twist
+- 👪 **Household** — family type, three traits, and an aspiration
+- 🏠 **House** — build type, style, exterior material, color schemes, features, and bonus rooms
+- 🌍 **World** — where to put down roots
 
-### Version 0.2
-It will include options to enable/disable any expansions packs
-It will let you choose if you want it to select a location to build the house
+Every line has its own ↻ re-roll button, and results only use content from the
+packs you own (pick them under **Packs ⚙** — saved in your browser).
 
-### Version 0.3
-The app will include a more finalized UI
+## Development
 
-### Version 0.4
-Migrate data to Firebase or MongoDB and hook up APIs
+```bash
+pnpm install
+pnpm dev        # dev server
+pnpm test       # vitest watch mode
+pnpm test:run   # run tests once
+pnpm build      # type-check + production build (dist/)
+```
 
-### Version 0.5
-It will generate characterisitics for the individual/family
+## Stack
 
-### Version 0.6
-It will generate challenges. Challenges will be a static list that popular sims youtubers use.
+Vite · React · TypeScript · Tailwind CSS 4 · Vitest
+
+## Adding content
+
+All rollable content lives in `src/data/` — one file per category. Add an entry
+with a unique `id`, a `label`, and the `pack` it requires (`"base"` if none).
+The data integrity test (`pnpm test:run`) verifies ids are unique, packs are
+real, and every category keeps enough base-game entries to roll without packs.
+
+The previous Create React App version is preserved in git history at commit
+`b72eaaf`.
