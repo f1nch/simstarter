@@ -40,9 +40,5 @@ export const traits: DataItem[] = [
   { id: "vegetarian", label: "Vegetarian", pack: "base" },
   { id: "cat_lover", label: "Cat Lover", pack: "cats_and_dogs" },
   { id: "dog_lover", label: "Dog Lover", pack: "cats_and_dogs" },
-  { id: "dance_machine", label: "Dance Machine", pack: "get_together" },
-  { id: "insider", label: "Insider", pack: "get_together" },
-  { id: "adventurous", label: "Adventurous", pack: "snowy_escape" },
-  { id: "proper", label: "Proper", pack: "snowy_escape" },
   { id: "animal_enthusiast", label: "Animal Enthusiast", pack: "cottage_living" },
 ];
