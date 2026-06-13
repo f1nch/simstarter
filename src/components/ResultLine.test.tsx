@@ -11,6 +11,11 @@ const packItem: DataItem = {
   pack: "cottage_living",
   detail: "Moo.",
 };
+const stuffItem: DataItem = {
+  id: "laundry_room",
+  label: "Laundry Room",
+  pack: "laundry_day",
+};
 
 describe("ResultLine", () => {
   it("shows label and detail", () => {
@@ -26,6 +31,12 @@ describe("ResultLine", () => {
     expect(screen.getByText("Cottage Living")).toBeInTheDocument();
     rerender(<ResultLine caption="Feature" item={baseItem} onReroll={() => {}} />);
     expect(screen.queryByText("Base Game")).not.toBeInTheDocument();
+  });
+
+  it("strips the ' Stuff' suffix from stuff-pack badge names", () => {
+    render(<ResultLine caption="Room" item={stuffItem} onReroll={() => {}} />);
+    expect(screen.getByText("Laundry Day")).toBeInTheDocument();
+    expect(screen.queryByText("Laundry Day Stuff")).not.toBeInTheDocument();
   });
 
   it("calls onReroll when the re-roll button is clicked", async () => {
