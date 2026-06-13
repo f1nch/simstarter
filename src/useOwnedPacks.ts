@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { packIds, type PackId } from "./data/packs";
 
 export const STORAGE_KEY = "simstarter.ownedPacks";
@@ -24,11 +24,11 @@ function load(): Set<PackId> {
 export function useOwnedPacks(): [Set<PackId>, (next: Set<PackId>) => void] {
   const [owned, setOwned] = useState<Set<PackId>>(load);
 
-  function update(next: Set<PackId>) {
+  const update = useCallback((next: Set<PackId>) => {
     const withBase = new Set(next).add("base");
     setOwned(withBase);
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...withBase]));
-  }
+  }, []);
 
   return [owned, update];
 }

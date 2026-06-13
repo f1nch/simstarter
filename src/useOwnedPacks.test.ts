@@ -32,4 +32,13 @@ describe("useOwnedPacks", () => {
     const { result } = renderHook(() => useOwnedPacks());
     expect([...result.current[0]]).toEqual(["base"]);
   });
+
+  it("persists then remounts with the same set", () => {
+    const { result: first } = renderHook(() => useOwnedPacks());
+    act(() => first.current[1](new Set<PackId>(["seasons", "vampires"])));
+    const { result: second } = renderHook(() => useOwnedPacks());
+    expect(second.current[0].has("seasons")).toBe(true);
+    expect(second.current[0].has("vampires")).toBe(true);
+    expect(second.current[0].has("base")).toBe(true);
+  });
 });
