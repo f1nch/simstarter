@@ -45,7 +45,7 @@ describe("App", () => {
   it("opens the pack picker", async () => {
     render(<App />);
     await userEvent.click(screen.getByRole("button", { name: /packs/i }));
-    expect(screen.getByRole("dialog", { name: /choose your packs/i })).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /your packs/i })).toBeInTheDocument();
     expect(screen.getByText("Base Game (always on)")).toBeInTheDocument();
   });
 });

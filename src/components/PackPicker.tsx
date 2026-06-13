@@ -28,8 +28,9 @@ export function PackPicker({ owned, onChange, onClose }: PackPickerProps) {
       className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 p-4"
       role="dialog"
       aria-modal="true"
-      aria-label="Choose your packs"
+      aria-labelledby="pack-picker-title"
       tabIndex={-1}
+      ref={(node) => node?.focus()}
       onClick={onClose}
       onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
     >
@@ -38,7 +39,7 @@ export function PackPicker({ owned, onChange, onClose }: PackPickerProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-extrabold text-green-800">Your Packs</h2>
+          <h2 id="pack-picker-title" className="text-lg font-extrabold text-green-800">Your Packs</h2>
           <button
             type="button"
             onClick={onClose}
