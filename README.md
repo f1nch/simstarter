@@ -8,7 +8,8 @@ A Sims 4 starting-point generator. One click rolls a complete fresh-save setup:
 - 🌍 **World** — where to put down roots
 
 Every line has its own ↻ re-roll button, and results only use content from the
-packs you own (pick them under **Packs ⚙** — saved in your browser).
+packs you own. Toggle any of the 52 packs individually under **Packs ⚙**
+(expansion, game, and stuff packs) — your selection is saved in your browser.
 
 ## Development
 
@@ -24,6 +25,10 @@ pnpm build      # type-check + production build (dist/)
 
 Vite · React · TypeScript · Tailwind CSS 4 · Vitest
 
+The app is fully client-side — no backend, no build-time data fetching.
+`vite.config.ts` sets `base: "./"` so a `pnpm build` can be served from any
+static host or subpath (e.g. GitHub Pages).
+
 ## Adding content
 
 All rollable content lives in `src/data/` — one file per category. Add an entry
@@ -33,3 +38,9 @@ real, and every category keeps enough base-game entries to roll without packs.
 
 The previous Create React App version is preserved in git history at commit
 `b72eaaf`.
+
+## Docs
+
+- `docs/HANDOFF.md` — current status, architecture overview, and what's left.
+- `docs/superpowers/specs/2026-06-12-simstarter-design.md` — design spec.
+- `docs/superpowers/plans/2026-06-12-simstarter-rebuild.md` — implementation plan.
