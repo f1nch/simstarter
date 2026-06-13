@@ -55,18 +55,12 @@ vite.config for GitHub Pages compatibility.
 
 ## Open items / what's left
 
-1. **KNOWN DATA BUG — 4 non-CAS traits still present** (`src/data/traits.ts:43-46`).
-   These were flagged Critical in review and should be **removed** — they are not
-   selectable in Create-A-Sim:
-   - `dance_machine` (Dance Machine) + `insider` (Insider) — Get Together *reward*
-     traits, earned via the club system.
-   - `adventurous` (Adventurous) + `proper` (Proper) — Snowy Escape *Lifestyle*
-     traits, acquired in-world through behavior.
-   Fix: delete those 4 lines. Re-run `pnpm test` (integrity test should still pass;
-   Get Together / Snowy Escape will simply contribute fewer trait entries).
+1. ~~**KNOWN DATA BUG — 4 non-CAS traits**~~ ✅ **FIXED** (commit `4a8700e`).
+   `dance_machine`, `insider` (Get Together reward traits) and `adventurous`,
+   `proper` (Snowy Escape Lifestyle traits) were removed from `traits.ts` —
+   they aren't selectable in Create-A-Sim. Tests still 72/72.
 
-2. **Merge the PR** once #1 is resolved (or decide to merge as-is and fix in a
-   follow-up).
+2. **Merge the PR** — no known blockers remain.
 
 3. **Deploy** — `base: "./"` is already set for GitHub Pages. No CI/deploy workflow
    exists yet; would need a `gh-pages` action or manual `dist/` publish if desired.
