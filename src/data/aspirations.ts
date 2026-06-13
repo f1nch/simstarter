@@ -31,4 +31,5 @@ export const aspirations: DataItem[] = [
   { id: "beach_life", label: "Beach Life", pack: "island_living" },
   { id: "academic", label: "Academic", pack: "discover_university" },
   { id: "country_caretaker", label: "Country Caretaker", pack: "cottage_living" },
+  { id: "critter_hunter", label: "Critter Hunter", pack: "adventure_awaits" },
 ];

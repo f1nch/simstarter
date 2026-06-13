@@ -20,6 +20,8 @@ export const packIds = [
   "life_and_death",
   "businesses_and_hobbies",
   "enchanted_by_nature",
+  "adventure_awaits",
+  "royalty_and_legacy",
   // Game packs
   "outdoor_retreat",
   "spa_day",
@@ -86,6 +88,8 @@ export const packs: Pack[] = [
   { id: "life_and_death", name: "Life & Death", type: "expansion" },
   { id: "businesses_and_hobbies", name: "Businesses & Hobbies", type: "expansion" },
   { id: "enchanted_by_nature", name: "Enchanted by Nature", type: "expansion" },
+  { id: "adventure_awaits", name: "Adventure Awaits", type: "expansion" },
+  { id: "royalty_and_legacy", name: "Royalty & Legacy", type: "expansion" },
   { id: "outdoor_retreat", name: "Outdoor Retreat", type: "game" },
   { id: "spa_day", name: "Spa Day", type: "game" },
   { id: "dine_out", name: "Dine Out", type: "game" },
