@@ -27,8 +27,11 @@ export function PackPicker({ owned, onChange, onClose }: PackPickerProps) {
     <div
       className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 p-4"
       role="dialog"
+      aria-modal="true"
       aria-label="Choose your packs"
+      tabIndex={-1}
       onClick={onClose}
+      onKeyDown={(e) => { if (e.key === "Escape") onClose(); }}
     >
       <div
         className="max-h-[80vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white p-6 shadow-xl"
