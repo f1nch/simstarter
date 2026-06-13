@@ -19,29 +19,29 @@ const stuffItem: DataItem = {
 
 describe("ResultLine", () => {
   it("shows label and detail", () => {
-    render(<ResultLine caption="Feature" item={packItem} onReroll={() => {}} />);
+    render(<ResultLine caption="Feature" item={packItem} accent="amber" onReroll={() => {}} />);
     expect(screen.getByText("Livestock")).toBeInTheDocument();
     expect(screen.getByText("Moo.")).toBeInTheDocument();
   });
 
   it("shows a pack badge only for non-base items", () => {
     const { rerender } = render(
-      <ResultLine caption="Feature" item={packItem} onReroll={() => {}} />,
+      <ResultLine caption="Feature" item={packItem} accent="amber" onReroll={() => {}} />,
     );
     expect(screen.getByText("Cottage Living")).toBeInTheDocument();
-    rerender(<ResultLine caption="Feature" item={baseItem} onReroll={() => {}} />);
+    rerender(<ResultLine caption="Feature" item={baseItem} accent="amber" onReroll={() => {}} />);
     expect(screen.queryByText("Base Game")).not.toBeInTheDocument();
   });
 
   it("strips the ' Stuff' suffix from stuff-pack badge names", () => {
-    render(<ResultLine caption="Room" item={stuffItem} onReroll={() => {}} />);
+    render(<ResultLine caption="Room" item={stuffItem} accent="amber" onReroll={() => {}} />);
     expect(screen.getByText("Laundry Day")).toBeInTheDocument();
     expect(screen.queryByText("Laundry Day Stuff")).not.toBeInTheDocument();
   });
 
   it("calls onReroll when the re-roll button is clicked", async () => {
     const onReroll = vi.fn();
-    render(<ResultLine caption="Feature" item={baseItem} onReroll={onReroll} />);
+    render(<ResultLine caption="Feature" item={baseItem} accent="amber" onReroll={onReroll} />);
     await userEvent.click(screen.getByRole("button", { name: "Re-roll Feature" }));
     expect(onReroll).toHaveBeenCalledOnce();
   });

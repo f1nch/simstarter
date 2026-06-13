@@ -13,6 +13,7 @@ import { Header } from "./components/Header";
 import { PackPicker } from "./components/PackPicker";
 import { ResultCard } from "./components/ResultCard";
 import { ResultLine } from "./components/ResultLine";
+import type { Accent } from "./components/accents";
 
 export default function App() {
   const [ownedPacks, setOwnedPacks] = useOwnedPacks();
@@ -46,12 +47,13 @@ export default function App() {
     });
   }
 
-  function arrayLines(slot: ArraySlot, caption: string) {
+  function arrayLines(slot: ArraySlot, caption: string, accent: Accent) {
     return sp![slot].map((item, i) => (
       <ResultLine
         key={`${slot}-${i}`}
         caption={sp![slot].length > 1 ? `${caption} ${i + 1}` : caption}
         item={item}
+        accent={accent}
         onReroll={() => rerollArrayItem(slot, i)}
       />
     ));
@@ -63,8 +65,12 @@ export default function App() {
       <main className="mx-auto max-w-5xl px-4 py-6">
         {sp === null ? (
           <div className="flex flex-col items-center gap-4 py-24 text-center">
-            <p className="text-2xl font-extrabold text-green-700">
-              Roll your next story 🎲
+            <svg viewBox="0 0 20 28" className="h-20 w-14 animate-bob" aria-hidden="true">
+              <polygon points="10,0 20,14 10,28 0,14" fill="#22c55e" />
+              <polygon points="10,4 16.5,14 10,24 3.5,14" fill="#4ade80" />
+            </svg>
+            <p className="font-display text-3xl font-semibold text-green-700">
+              Roll your next story
             </p>
             <p className="max-w-md text-slate-500">
               One click generates a challenge, a household, a house build, and a
@@ -73,36 +79,36 @@ export default function App() {
             <button
               type="button"
               onClick={generate}
-              className="rounded-full bg-green-500 px-8 py-3 text-lg font-bold text-white shadow-lg transition hover:bg-green-600 active:scale-95"
+              className="rounded-full bg-green-500 px-8 py-3 font-display text-lg font-semibold text-white shadow-[0_5px_0_#15803d] transition-transform active:translate-y-[5px] active:shadow-none hover:bg-green-600"
             >
               🎲 Generate
             </button>
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2">
-            <ResultCard icon="📜" title="Challenge">
-              <ResultLine caption="Scenario" item={sp.scenario} onReroll={() => rerollSingle("scenario")} />
-              {arrayLines("restrictions", "Restriction")}
-              <ResultLine caption="Goal" item={sp.goal} onReroll={() => rerollSingle("goal")} />
-              <ResultLine caption="Wildcard" item={sp.wildcard} onReroll={() => rerollSingle("wildcard")} />
+            <ResultCard icon="📜" title="Challenge" accent="amber">
+              <ResultLine caption="Scenario" accent="amber" item={sp.scenario} onReroll={() => rerollSingle("scenario")} />
+              {arrayLines("restrictions", "Restriction", "amber")}
+              <ResultLine caption="Goal" accent="amber" item={sp.goal} onReroll={() => rerollSingle("goal")} />
+              <ResultLine caption="Wildcard" accent="amber" item={sp.wildcard} onReroll={() => rerollSingle("wildcard")} />
             </ResultCard>
-            <ResultCard icon="👪" title="Household">
-              <ResultLine caption="Family type" item={sp.household} onReroll={() => rerollSingle("household")} />
-              {arrayLines("traits", "Trait")}
-              <ResultLine caption="Aspiration" item={sp.aspiration} onReroll={() => rerollSingle("aspiration")} />
+            <ResultCard icon="👪" title="Household" accent="pink">
+              <ResultLine caption="Family type" accent="pink" item={sp.household} onReroll={() => rerollSingle("household")} />
+              {arrayLines("traits", "Trait", "pink")}
+              <ResultLine caption="Aspiration" accent="pink" item={sp.aspiration} onReroll={() => rerollSingle("aspiration")} />
             </ResultCard>
-            <ResultCard icon="🏠" title="House">
-              <ResultLine caption="Build type" item={sp.houseType} onReroll={() => rerollSingle("houseType")} />
-              <ResultLine caption="Style" item={sp.houseStyle} onReroll={() => rerollSingle("houseStyle")} />
-              <ResultLine caption="Exterior material" item={sp.exteriorMaterial} onReroll={() => rerollSingle("exteriorMaterial")} />
-              <ResultLine caption="Exterior colors" item={sp.exteriorColors} onReroll={() => rerollSingle("exteriorColors")} />
-              <ResultLine caption="Interior colors" item={sp.interiorColors} onReroll={() => rerollSingle("interiorColors")} />
-              {arrayLines("exteriorFeatures", "Exterior feature")}
-              {arrayLines("bonusRooms", "Bonus room")}
-              {arrayLines("interiorFeatures", "Interior feature")}
+            <ResultCard icon="🏠" title="House" accent="sky">
+              <ResultLine caption="Build type" accent="sky" item={sp.houseType} onReroll={() => rerollSingle("houseType")} />
+              <ResultLine caption="Style" accent="sky" item={sp.houseStyle} onReroll={() => rerollSingle("houseStyle")} />
+              <ResultLine caption="Exterior material" accent="sky" item={sp.exteriorMaterial} onReroll={() => rerollSingle("exteriorMaterial")} />
+              <ResultLine caption="Exterior colors" accent="sky" item={sp.exteriorColors} onReroll={() => rerollSingle("exteriorColors")} />
+              <ResultLine caption="Interior colors" accent="sky" item={sp.interiorColors} onReroll={() => rerollSingle("interiorColors")} />
+              {arrayLines("exteriorFeatures", "Exterior feature", "sky")}
+              {arrayLines("bonusRooms", "Bonus room", "sky")}
+              {arrayLines("interiorFeatures", "Interior feature", "sky")}
             </ResultCard>
-            <ResultCard icon="🌍" title="World">
-              <ResultLine caption="World" item={sp.world} onReroll={() => rerollSingle("world")} />
+            <ResultCard icon="🌍" title="World" accent="teal">
+              <ResultLine caption="World" accent="teal" item={sp.world} onReroll={() => rerollSingle("world")} />
             </ResultCard>
           </div>
         )}
