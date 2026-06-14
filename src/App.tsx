@@ -127,7 +127,7 @@ export default function App() {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <ResultCard icon="📜" title="Challenge" accent="amber">
                 <ResultLine caption="Scenario" accent="amber" item={sp.scenario} onReroll={() => rerollSingle("scenario")} />
                 {arrayLines("restrictions", "Restriction", "amber")}
@@ -148,9 +148,6 @@ export default function App() {
                 {arrayLines("exteriorFeatures", "Exterior feature", "sky")}
                 {arrayLines("bonusRooms", "Bonus room", "sky")}
                 {arrayLines("interiorFeatures", "Interior feature", "sky")}
-              </ResultCard>
-              <ResultCard icon="🌍" title="World" accent="teal">
-                <ResultLine caption="World" accent="teal" item={sp.world} onReroll={() => rerollSingle("world")} />
               </ResultCard>
             </div>
             <div className="mt-6 flex flex-col items-center gap-2">
