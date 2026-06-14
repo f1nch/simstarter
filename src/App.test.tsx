@@ -17,17 +17,17 @@ describe("App", () => {
     expect(screen.queryByRole("heading", { name: "Challenge" })).not.toBeInTheDocument();
   });
 
-  it("fills all four cards on Generate", async () => {
+  it("fills all three cards on Generate", async () => {
     render(<App />);
     // two Generate buttons exist pre-roll (header + empty-state CTA)
     await userEvent.click(screen.getAllByRole("button", { name: /generate/i })[0]);
     // role query: the heading's text content includes the aria-hidden icon,
     // so an exact getByText("House") would not match
-    for (const title of ["Challenge", "Household", "House", "World"]) {
+    for (const title of ["Challenge", "Household", "House"]) {
       expect(screen.getByRole("heading", { name: title })).toBeInTheDocument();
     }
     // every slot rendered: at least scenario, goal, wildcard, household,
-    // 3 traits, aspiration, 8 house lines, world => lots of re-roll buttons
+    // 3 traits, aspiration, 8 house lines => lots of re-roll buttons
     expect(screen.getAllByRole("button", { name: /^re-roll/i }).length).toBeGreaterThanOrEqual(15);
   });
 
@@ -56,7 +56,6 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: "Challenge" })).toBeInTheDocument();
     // the exact shared picks are shown
     expect(screen.getByText(sp.scenario.label)).toBeInTheDocument();
-    expect(screen.getByText(sp.world.label)).toBeInTheDocument();
   });
 
   it("opens the pack picker", async () => {
