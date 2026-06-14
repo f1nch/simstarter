@@ -1,4 +1,5 @@
 import type { DataItem } from "./types";
+import type { HouseholdShape } from "./households";
 
 export const scenarios: DataItem[] = [
   { id: "teen_runaway", label: "Teen runaway", pack: "base", detail: "Start as a lone teen with §500. No adults at game start — survive until you age up." },
@@ -18,3 +19,16 @@ export const scenarios: DataItem[] = [
   { id: "perpetual_vacationer", label: "Perpetual vacationer", pack: "adventure_awaits", detail: "This household lives for getaways. Book a trip to Gibbi Point every chance you get and never quite settle down." },
   { id: "fallen_noble", label: "Fallen noble", pack: "royalty_and_legacy", detail: "Scandal cost your dynasty everything. Start with a title, §0, and a plan to reclaim Ondarion's respect." },
 ];
+
+// Scenarios that imply a household structure constrain which family-type shapes
+// the generator may pair with them. Unlisted scenarios are compatible with any
+// household. Every listed shape must be reachable by a base-game household so
+// the filtered roll never empties — enforced by the compat test.
+export const scenarioShapes: Record<string, HouseholdShape[]> = {
+  teen_runaway: ["solo"],
+  broke_single_parent: ["single_parent"],
+  rich_widow: ["solo", "single_parent"],
+  broke_newlyweds: ["couple"],
+  hermit_returns: ["solo"],
+  island_castaway: ["solo"],
+};

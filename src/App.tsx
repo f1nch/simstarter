@@ -2,6 +2,8 @@ import { useState } from "react";
 import {
   arraySlotCategories,
   generateStartingPoint,
+  householdMatchesScenario,
+  householdsForScenario,
   roll,
   singleSlotCategories,
   type ArraySlot,
@@ -25,12 +27,28 @@ export default function App() {
   }
 
   function rerollSingle(slot: SingleSlot) {
-    setSp((prev) =>
-      prev && {
+    setSp((prev) => {
+      if (!prev) return prev;
+      // Household stays within the current scenario's allowed shapes.
+      if (slot === "household") {
+        return {
+          ...prev,
+          household: roll(householdsForScenario(prev.scenario.id), ownedPacks, [prev.household.id]),
+        };
+      }
+      // Re-rolling the scenario auto-fixes the household only if it now clashes.
+      if (slot === "scenario") {
+        const scenario = roll(singleSlotCategories.scenario, ownedPacks, [prev.scenario.id]);
+        const household = householdMatchesScenario(scenario.id, prev.household.id)
+          ? prev.household
+          : roll(householdsForScenario(scenario.id), ownedPacks);
+        return { ...prev, scenario, household };
+      }
+      return {
         ...prev,
         [slot]: roll(singleSlotCategories[slot], ownedPacks, [prev[slot].id]),
-      },
-    );
+      };
+    });
   }
 
   function rerollArrayItem(slot: ArraySlot, index: number) {
