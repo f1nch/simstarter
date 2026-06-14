@@ -11,6 +11,10 @@ Every line has its own ↻ re-roll button, and results only use content from the
 packs you own. Toggle any of the 54 packs individually under **Packs ⚙**
 (expansion, game, and stuff packs) — your selection is saved in your browser.
 
+Hit **🔗 Share this starter** to copy a link that encodes the whole roll in the
+URL (no server). Open it and the exact starter loads — even if you don't own
+those packs.
+
 ## Development
 
 ```bash
