@@ -16,14 +16,37 @@ import { PackPicker } from "./components/PackPicker";
 import { ResultCard } from "./components/ResultCard";
 import { ResultLine } from "./components/ResultLine";
 import type { Accent } from "./components/accents";
+import { buildShareUrl, readSharedFromHash } from "./share";
 
 export default function App() {
   const [ownedPacks, setOwnedPacks] = useOwnedPacks();
-  const [sp, setSp] = useState<StartingPoint | null>(null);
+  const [sp, setSp] = useState<StartingPoint | null>(() =>
+    readSharedFromHash(window.location.hash),
+  );
   const [packsOpen, setPacksOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   function generate() {
     setSp(generateStartingPoint(ownedPacks));
+    setCopied(false);
+    // a fresh roll invalidates any shared link sitting in the address bar
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  }
+
+  async function share() {
+    if (!sp) return;
+    const url = buildShareUrl(sp);
+    // reflect the starter in the address bar so the page itself is shareable
+    window.history.replaceState(null, "", new URL(url).hash);
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // clipboard blocked — the address bar still holds the shareable link
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
   }
 
   function rerollSingle(slot: SingleSlot) {
@@ -103,32 +126,48 @@ export default function App() {
             </button>
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2">
-            <ResultCard icon="📜" title="Challenge" accent="amber">
-              <ResultLine caption="Scenario" accent="amber" item={sp.scenario} onReroll={() => rerollSingle("scenario")} />
-              {arrayLines("restrictions", "Restriction", "amber")}
-              <ResultLine caption="Goal" accent="amber" item={sp.goal} onReroll={() => rerollSingle("goal")} />
-              <ResultLine caption="Wildcard" accent="amber" item={sp.wildcard} onReroll={() => rerollSingle("wildcard")} />
-            </ResultCard>
-            <ResultCard icon="👪" title="Household" accent="pink">
-              <ResultLine caption="Family type" accent="pink" item={sp.household} onReroll={() => rerollSingle("household")} />
-              {arrayLines("traits", "Trait", "pink")}
-              <ResultLine caption="Aspiration" accent="pink" item={sp.aspiration} onReroll={() => rerollSingle("aspiration")} />
-            </ResultCard>
-            <ResultCard icon="🏠" title="House" accent="sky">
-              <ResultLine caption="Build type" accent="sky" item={sp.houseType} onReroll={() => rerollSingle("houseType")} />
-              <ResultLine caption="Style" accent="sky" item={sp.houseStyle} onReroll={() => rerollSingle("houseStyle")} />
-              <ResultLine caption="Exterior material" accent="sky" item={sp.exteriorMaterial} onReroll={() => rerollSingle("exteriorMaterial")} />
-              <ResultLine caption="Exterior colors" accent="sky" item={sp.exteriorColors} onReroll={() => rerollSingle("exteriorColors")} />
-              <ResultLine caption="Interior colors" accent="sky" item={sp.interiorColors} onReroll={() => rerollSingle("interiorColors")} />
-              {arrayLines("exteriorFeatures", "Exterior feature", "sky")}
-              {arrayLines("bonusRooms", "Bonus room", "sky")}
-              {arrayLines("interiorFeatures", "Interior feature", "sky")}
-            </ResultCard>
-            <ResultCard icon="🌍" title="World" accent="teal">
-              <ResultLine caption="World" accent="teal" item={sp.world} onReroll={() => rerollSingle("world")} />
-            </ResultCard>
-          </div>
+          <>
+            <div className="grid gap-4 md:grid-cols-2">
+              <ResultCard icon="📜" title="Challenge" accent="amber">
+                <ResultLine caption="Scenario" accent="amber" item={sp.scenario} onReroll={() => rerollSingle("scenario")} />
+                {arrayLines("restrictions", "Restriction", "amber")}
+                <ResultLine caption="Goal" accent="amber" item={sp.goal} onReroll={() => rerollSingle("goal")} />
+                <ResultLine caption="Wildcard" accent="amber" item={sp.wildcard} onReroll={() => rerollSingle("wildcard")} />
+              </ResultCard>
+              <ResultCard icon="👪" title="Household" accent="pink">
+                <ResultLine caption="Family type" accent="pink" item={sp.household} onReroll={() => rerollSingle("household")} />
+                {arrayLines("traits", "Trait", "pink")}
+                <ResultLine caption="Aspiration" accent="pink" item={sp.aspiration} onReroll={() => rerollSingle("aspiration")} />
+              </ResultCard>
+              <ResultCard icon="🏠" title="House" accent="sky">
+                <ResultLine caption="Build type" accent="sky" item={sp.houseType} onReroll={() => rerollSingle("houseType")} />
+                <ResultLine caption="Style" accent="sky" item={sp.houseStyle} onReroll={() => rerollSingle("houseStyle")} />
+                <ResultLine caption="Exterior material" accent="sky" item={sp.exteriorMaterial} onReroll={() => rerollSingle("exteriorMaterial")} />
+                <ResultLine caption="Exterior colors" accent="sky" item={sp.exteriorColors} onReroll={() => rerollSingle("exteriorColors")} />
+                <ResultLine caption="Interior colors" accent="sky" item={sp.interiorColors} onReroll={() => rerollSingle("interiorColors")} />
+                {arrayLines("exteriorFeatures", "Exterior feature", "sky")}
+                {arrayLines("bonusRooms", "Bonus room", "sky")}
+                {arrayLines("interiorFeatures", "Interior feature", "sky")}
+              </ResultCard>
+              <ResultCard icon="🌍" title="World" accent="teal">
+                <ResultLine caption="World" accent="teal" item={sp.world} onReroll={() => rerollSingle("world")} />
+              </ResultCard>
+            </div>
+            <div className="mt-6 flex flex-col items-center gap-2">
+              <button
+                type="button"
+                onClick={share}
+                className="rounded-full bg-green-500 px-6 py-2.5 font-display text-base font-semibold text-white shadow-[0_4px_0_#15803d] transition-transform active:translate-y-[4px] active:shadow-none hover:bg-green-600"
+              >
+                🔗 Share this starter
+              </button>
+              {copied && (
+                <p className="font-display text-sm font-semibold text-green-700">
+                  Link copied! Paste it anywhere.
+                </p>
+              )}
+            </div>
+          </>
         )}
       </main>
       {packsOpen && (

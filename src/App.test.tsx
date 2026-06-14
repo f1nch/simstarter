@@ -2,8 +2,13 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
+import { generateStartingPoint } from "./generator";
+import { encodeStartingPoint } from "./share";
 
-beforeEach(() => localStorage.clear());
+beforeEach(() => {
+  localStorage.clear();
+  window.location.hash = "";
+});
 
 describe("App", () => {
   it("shows an empty state before the first generate", () => {
@@ -40,6 +45,18 @@ describe("App", () => {
 
     expect(scenarioAfter).not.toBe(scenarioBefore); // exclusion guarantees a change
     expect(goalAfter).toBe(goalBefore);
+  });
+
+  it("loads a shared starter from the URL hash", () => {
+    const sp = generateStartingPoint(new Set(["base"]));
+    window.location.hash = `#sp=${encodeStartingPoint(sp)}`;
+    render(<App />);
+    // result view, not the empty state
+    expect(screen.queryByText(/roll your next story/i)).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Challenge" })).toBeInTheDocument();
+    // the exact shared picks are shown
+    expect(screen.getByText(sp.scenario.label)).toBeInTheDocument();
+    expect(screen.getByText(sp.world.label)).toBeInTheDocument();
   });
 
   it("opens the pack picker", async () => {
