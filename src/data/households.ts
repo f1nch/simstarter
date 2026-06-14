@@ -12,3 +12,28 @@ export const households: DataItem[] = [
   { id: "couple_with_pets", label: "Couple + two pets", pack: "cats_and_dogs" },
   { id: "farm_family", label: "Farming family", pack: "cottage_living", detail: "Family of any shape, plus plans for livestock." },
 ];
+
+// Structural shape of each household, used to keep it compatible with the
+// rolled scenario (see scenarioShapes in scenarios.ts). Every household id
+// must appear here — householdsHaveShapes in the compat test enforces it.
+export type HouseholdShape =
+  | "solo"
+  | "couple"
+  | "shared"
+  | "single_parent"
+  | "family"
+  | "multigen"
+  | "siblings";
+
+export const householdShape: Record<string, HouseholdShape> = {
+  single: "solo",
+  couple: "couple",
+  roommates: "shared",
+  nuclear_family: "family",
+  single_parent_toddler: "single_parent",
+  three_generations: "multigen",
+  elder_duo: "couple",
+  ya_with_teen_sibling: "siblings",
+  couple_with_pets: "couple",
+  farm_family: "family",
+};

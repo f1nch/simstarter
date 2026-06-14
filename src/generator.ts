@@ -1,10 +1,10 @@
 import type { DataItem } from "./data/types";
 import type { PackId } from "./data/packs";
-import { scenarios } from "./data/scenarios";
+import { scenarios, scenarioShapes } from "./data/scenarios";
 import { restrictions } from "./data/restrictions";
 import { goals } from "./data/goals";
 import { wildcards } from "./data/wildcards";
-import { households } from "./data/households";
+import { households, householdShape } from "./data/households";
 import { traits } from "./data/traits";
 import { aspirations } from "./data/aspirations";
 import { houseTypes } from "./data/houseTypes";
@@ -44,6 +44,20 @@ export function rollMany(
     picked.push(roll(category, ownedPacks, picked.map((p) => p.id)));
   }
   return picked;
+}
+
+/** Households compatible with a scenario's implied structure (all, if none). */
+export function householdsForScenario(scenarioId: string): DataItem[] {
+  const shapes = scenarioShapes[scenarioId];
+  if (!shapes) return households;
+  return households.filter((h) => shapes.includes(householdShape[h.id]));
+}
+
+/** Whether a household's shape satisfies a scenario's constraint. */
+export function householdMatchesScenario(scenarioId: string, householdId: string): boolean {
+  const shapes = scenarioShapes[scenarioId];
+  if (!shapes) return true;
+  return shapes.includes(householdShape[householdId]);
 }
 
 export interface StartingPoint {
@@ -104,12 +118,13 @@ export const arraySlotCounts: Record<Exclude<ArraySlot, "restrictions">, number>
 
 export function generateStartingPoint(ownedPacks: Set<PackId>): StartingPoint {
   const restrictionCount = Math.random() < 0.5 ? 1 : 2;
+  const scenario = roll(scenarios, ownedPacks);
   return {
-    scenario: roll(scenarios, ownedPacks),
+    scenario,
     restrictions: rollMany(restrictions, ownedPacks, restrictionCount),
     goal: roll(goals, ownedPacks),
     wildcard: roll(wildcards, ownedPacks),
-    household: roll(households, ownedPacks),
+    household: roll(householdsForScenario(scenario.id), ownedPacks),
     traits: rollMany(traits, ownedPacks, arraySlotCounts.traits),
     aspiration: roll(aspirations, ownedPacks),
     houseType: roll(houseTypes, ownedPacks),
